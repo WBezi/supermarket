@@ -45,7 +45,12 @@ public class Basket {
 	private void updateBalance() {
 		this.setBalance(0);
 		this.products.forEach((p, q) -> {
-			this.setBalance(this.getBalance() + p.getPrice() * q);
+			if(p.getDiscount() == null) {
+				this.setBalance(this.getBalance() + p.getPrice() * q);
+			} else {
+				double total = (q % p.getDiscount().getAmount()) * p.getPrice() + (q / p.getDiscount().getAmount()) * p.getDiscount().getNewPrice();
+				this.setBalance(this.getBalance() + total);
+			}
 		});
 	}
 
