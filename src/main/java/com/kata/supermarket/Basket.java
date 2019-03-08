@@ -33,4 +33,20 @@ public class Basket {
 		this.balance = balance;
 	}
 
+	public void addProduct(Product p) {
+		if (!this.products.containsKey(p)) {
+			this.products.put(p, 1);
+		} else {
+			this.products.put(p, this.products.get(p) + 1);
+		}
+		this.updateBalance();
+	}
+
+	private void updateBalance() {
+		this.setBalance(0);
+		this.products.forEach((p, q) -> {
+			this.setBalance(this.getBalance() + p.getPrice() * q);
+		});
+	}
+
 }
